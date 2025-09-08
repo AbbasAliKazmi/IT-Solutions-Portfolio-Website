@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 60px auto;
+      padding: 30px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="url"],
+    input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .status {
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Add Product</h2>
+    <form id="productForm">
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title" required>
+
+      <label for="shortDescription">Short Description</label>
+      <input type="text" id="shortDescription" name="shortDescription" required>
+
+      <label for="productUrl">Product URL</label>
+      <input type="url" id="productUrl" name="productUrl" required>
+
+      <label for="fileInput">Image/Video File</label>
+      <input type="file" id="fileInput" name="file" accept="image/*,video/*" required>
+
+
+      <button type="submit">Upload Product</button>
+
+      <div class="status" id="status"></div>
+    </form>
+  </div>
+
+<script>
+  const form = document.getElementById("productForm");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const fileInput = document.getElementById("fileInput");
+    const title = document.getElementById("title").value;
+    const shortDescription = document.getElementById("shortDescription").value;
+    const productUrl = document.getElementById("productUrl").value;
+
+    const formData = new FormData();
+    formData.append("file", fileInput.files[0]);
+
+    try {
+      // Step 1: Upload image
+      const uploadRes = await fetch("http://localhost:5254/api/products/upload", {
+        method: "POST",
+        body: formData
+      });
+
+      const uploadData = await uploadRes.json();
+      const imageUrl = uploadData.imageUrl;
+
+      // Step 2: Save product data
+      const product = {
+        title,
+        shortDescription,
+        productUrl,
+        imageUrl
+      };
+
+      const saveRes = await fetch("http://localhost:5254/api/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(product)
+      });
+
+      const saved = await saveRes.json();
+      console.log("✅ Product saved:", saved);
+
+      // Step 3: Show success + image preview
+      document.getElementById("status").innerText = "✅ Product uploaded successfully!";
+
+      const img = document.createElement("img");
+      img.src = `http://localhost:5254${imageUrl}`;
+      img.style.maxWidth = "250px";
+      img.style.marginTop = "20px";
+
+      document.querySelector(".container").appendChild(img);
+
+    } catch (err) {
+      console.error("❌ Error:", err);
+      document.getElementById("status").innerText = "❌ Upload failed!";
+    }
+  });
+</script>
+
+</body>
+</html>
