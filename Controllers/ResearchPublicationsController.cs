@@ -7,7 +7,7 @@ namespace ProductAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "Admin")] // ✅ Sirf Admin access
+    [Authorize(Roles = "Admin")] //  Sirf Admin access
     public class ResearchPublicationsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -17,14 +17,14 @@ namespace ProductAPI.Controllers
             _context = context;
         }
 
-        // ✅ Get All
+        //  Get All
         [HttpGet]
         public IActionResult GetAll()
         {
             return Ok(_context.ResearchPublications.ToList());
         }
 
-        // ✅ Get by ID
+        //  Get by ID
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -33,7 +33,7 @@ namespace ProductAPI.Controllers
             return Ok(publication);
         }
 
-        // ✅ Create
+        //  Create
         [HttpPost]
         public IActionResult Create([FromBody] ResearchPublication pub)
         {
@@ -44,7 +44,7 @@ namespace ProductAPI.Controllers
             return Ok(pub);
         }
 
-        // ✅ Update
+        //  Update
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] ResearchPublication pub)
         {
@@ -63,7 +63,7 @@ namespace ProductAPI.Controllers
             return Ok(existing);
         }
 
-        // ✅ Delete
+        //  Delete
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

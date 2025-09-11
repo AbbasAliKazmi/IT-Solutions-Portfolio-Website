@@ -36,14 +36,14 @@ namespace ProductAPI.Controllers
             return Ok(product);
         }
 
-        // ✅ POST: api/products/upload
+        //  POST: api/products/upload
         [HttpPost("upload")]
         public async Task<IActionResult> UploadImage([FromForm] FileUploadModel model)
         {
             if (model.File == null || model.File.Length == 0)
                 return BadRequest("No file selected.");
 
-            // ✅ ALLOWED EXTENSIONS: images & video
+            //  ALLOWED EXTENSIONS: images & video
             var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp", ".mp4", ".webm" };
             var extension = Path.GetExtension(model.File.FileName).ToLower();
 
@@ -52,7 +52,7 @@ namespace ProductAPI.Controllers
 
             var fileName = Guid.NewGuid() + extension;
 
-            // ✅ Save to ASP.NET project folder
+            //  Save to ASP.NET project folder
             var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "content");
             if (!Directory.Exists(uploadsFolder))
                 Directory.CreateDirectory(uploadsFolder);
@@ -63,7 +63,7 @@ namespace ProductAPI.Controllers
                 await model.File.CopyToAsync(stream);
             }
 
-            // ✅ Also copy to WordPress folder (XAMPP path)
+            //  Also copy to WordPress folder (XAMPP path)
             var wordpressPath = @"C:\xampp\htdocs\Weburio\wordpress\content";
             var destinationPath = Path.Combine(wordpressPath, fileName);
             try
@@ -75,7 +75,7 @@ namespace ProductAPI.Controllers
                 Console.WriteLine("Failed to copy to WordPress folder: " + ex.Message);
             }
 
-            // ✅ Return relative path for frontend
+            //  Return relative path for frontend
             var publicPath = $"/content/{fileName}";
             return Ok(new { imageUrl = publicPath });
         }

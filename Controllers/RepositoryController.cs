@@ -16,14 +16,14 @@ namespace ProductAPI.Controllers
             _context = context;
         }
 
-        // ✅ Get all repositories
+        //  Get all repositories
         [HttpGet]
         public IActionResult GetAll()
         {
             return Ok(_context.Repositories.ToList());
         }
 
-        // ✅ Get repository by id
+        //  Get repository by id
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -32,7 +32,7 @@ namespace ProductAPI.Controllers
             return Ok(repo);
         }
 
-        // ✅ Add new repository (Admin only)
+        //  Add new repository (Admin only)
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Create([FromBody] Repository repo)
@@ -42,7 +42,7 @@ namespace ProductAPI.Controllers
             return Ok(repo);
         }
 
-        // ✅ Update repository (Admin only)
+        //  Update repository (Admin only)
         [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] Repository repo)
@@ -59,7 +59,7 @@ namespace ProductAPI.Controllers
             return Ok(existing);
         }
 
-        // ✅ Delete repository (Admin only)
+        //  Delete repository (Admin only)
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)

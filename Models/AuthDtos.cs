@@ -1,6 +1,6 @@
 namespace ProductAPI.Models
 {
-    // ✅ DTO for Registration
+    //  DTO for Registration
     public class RegisterDto
     {
         public string Email { get; set; } = null!;
@@ -8,7 +8,7 @@ namespace ProductAPI.Models
         public string ConfirmPassword { get; set; } = null!;
     }
 
-    // ✅ DTO for Login
+    //  DTO for Login
     public class LoginDto
     {
         public string Email { get; set; } = null!;

@@ -14,7 +14,7 @@ namespace ProductAPI.Controllers
             _context = context;
         }
 
-        // ✅ Add new research publication
+        //  Add new research publication
         [HttpPost]
         public async Task<IActionResult> CreateResearch([FromBody] ResearchPublication research)
         {
@@ -23,7 +23,7 @@ namespace ProductAPI.Controllers
             return Ok(research);
         }
 
-        // ✅ Search & Filter
+        //  Search & Filter
         [HttpGet("search")]
         public IActionResult Search([FromQuery] string? keyword, [FromQuery] string? author, [FromQuery] int? year)
         {

@@ -19,7 +19,7 @@ namespace ProductAPI.Controllers
         public async Task<IActionResult> SendTest()
         {
             await _emailSender.SendEmailAsync(
-                "test@example.com",   // koi bhi test email address
+                "test@example.com",   
                 "Test from ProductAPI",
                 "<p>This is a test email via Mailtrap.</p>"
             );

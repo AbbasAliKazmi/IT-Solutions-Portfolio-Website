@@ -7,7 +7,7 @@ using ProductAPI.Data;
 using ProductAPI.Models;
 using System.Text;
 using System.IO;
-using Microsoft.OpenApi.Models;   // ✅ Swagger ke liye add
+using Microsoft.OpenApi.Models;   //  Swagger ke liye add
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -74,7 +74,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SupportNonNullableReferenceTypes();
 
-    // ✅ JWT Bearer config for Swagger
+    //  JWT Bearer config for Swagger
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         In = ParameterLocation.Header,
@@ -100,7 +100,7 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// ✅ Email sender register
+//  Email sender register
 builder.Services.AddScoped<IEmailSender, SmtpEmailSender>();
 
 
@@ -148,11 +148,11 @@ if (!Directory.Exists(contentPath))
 }
 
 // ===================== Phase 3: Authentication & Routing =====================
-// ✅ Correct order
+//  Correct order
 // app.UseHttpsRedirection();
 app.UseRouting();
 
-app.UseCors("AllowFrontend"); // ✅ CORS here
+app.UseCors("AllowFrontend"); //  CORS here
 
 app.UseAuthentication();
 app.UseAuthorization();

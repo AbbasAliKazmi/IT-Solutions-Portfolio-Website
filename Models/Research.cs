@@ -16,7 +16,7 @@ namespace ProductAPI.Models
 
         public string? FilePath { get; set; }
 
-        // 🔥 Fix
+        //  Fix
         public int Year { get; set; }
     }
 }

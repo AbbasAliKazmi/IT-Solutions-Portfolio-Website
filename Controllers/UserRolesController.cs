@@ -7,7 +7,7 @@ namespace ProductAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "Admin")] // ✅ Sirf Admin access
+    [Authorize(Roles = "Admin")] //  Sirf Admin access
     public class UserRolesController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -17,7 +17,7 @@ namespace ProductAPI.Controllers
             _userManager = userManager;
         }
 
-        // ✅ 1) Get all users + roles
+        //  1) Get all users + roles
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
@@ -39,7 +39,7 @@ namespace ProductAPI.Controllers
             return Ok(userList);
         }
 
-        // ✅ 2) Assign role to a user
+        //  2) Assign role to a user
         [HttpPut("{userId}/assign")]
         public async Task<IActionResult> AssignRole(string userId, [FromBody] string role)
         {
@@ -53,7 +53,7 @@ namespace ProductAPI.Controllers
             return Ok($"Role '{role}' assigned to {user.UserName}");
         }
 
-        // ✅ 3) Block a user (lockout enable)
+        //  3) Block a user (lockout enable)
         [HttpPut("{userId}/block")]
         public async Task<IActionResult> BlockUser(string userId)
         {
@@ -67,7 +67,7 @@ namespace ProductAPI.Controllers
             return Ok($"{user.UserName} has been blocked.");
         }
 
-        // ✅ 4) Unblock a user
+        //  4) Unblock a user
         [HttpPut("{userId}/unblock")]
         public async Task<IActionResult> UnblockUser(string userId)
         {

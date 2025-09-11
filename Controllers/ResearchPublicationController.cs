@@ -16,14 +16,14 @@ namespace ProductAPI.Controllers
             _context = context;
         }
 
-        // ✅ Get all publications
+        //  Get all publications
         [HttpGet]
         public IActionResult GetAll()
         {
             return Ok(_context.ResearchPublications.ToList());
         }
 
-        // ✅ Get publication by id
+        //  Get publication by id
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -32,7 +32,7 @@ namespace ProductAPI.Controllers
             return Ok(pub);
         }
 
-        // ✅ Add new publication (Admin only)
+        //  Add new publication (Admin only)
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Create([FromBody] ResearchPublication pub)
@@ -42,7 +42,7 @@ namespace ProductAPI.Controllers
             return Ok(pub);
         }
 
-        // ✅ Update publication (Admin only)
+        //  Update publication (Admin only)
         [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] ResearchPublication pub)
@@ -61,7 +61,7 @@ namespace ProductAPI.Controllers
             return Ok(existing);
         }
 
-        // ✅ Delete publication (Admin only)
+        //  Delete publication (Admin only)
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)

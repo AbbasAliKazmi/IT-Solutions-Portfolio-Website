@@ -34,7 +34,7 @@ namespace ProductAPI.Controllers
             _emailSender = emailSender;
         }
 
-        // ✅ Register with email confirmation (fixed encoding)
+        //  Register with email confirmation (fixed encoding)
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto model)
         {
@@ -58,14 +58,14 @@ namespace ProductAPI.Controllers
             var frontUrl = _config["FrontendUrl"] ?? $"{Request.Scheme}://{Request.Host}";
             var confirmLink = $"{frontUrl}/api/Auth/confirmemail?userId={user.Id}&token={tokenEncoded}";
 
-            // ✅ Send only via email (not in API response)
+            //  Send only via email (not in API response)
             // await _emailSender.SendEmailAsync(user.Email, "Confirm your email",
             //    $"Please confirm your account by clicking <a href=\"{confirmLink}\">here</a>.");
 
             return Ok(new { message = "User created. Please check your email to confirm your account." });
         }
 
-        // ✅ Confirm Email (fixed decoding)
+        //  Confirm Email (fixed decoding)
         [HttpGet("confirmemail")]
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {
@@ -88,7 +88,7 @@ namespace ProductAPI.Controllers
                 return BadRequest("Email confirmation failed");
         }
 
-        // ✅ Login
+        //  Login
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto model)
         {
@@ -130,7 +130,7 @@ namespace ProductAPI.Controllers
             return Ok(new { token = jwt });
         }
 
-        // ✅ Forgot Password
+        //  Forgot Password
         [HttpPost("forgotpassword")]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto model)
         {
@@ -150,7 +150,7 @@ namespace ProductAPI.Controllers
             return Ok(new { message = "If the email exists, a reset link has been sent." });
         }
 
-        // ✅ Reset Password
+        //  Reset Password
         [HttpPost("resetpassword")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto model)
         {
@@ -166,7 +166,7 @@ namespace ProductAPI.Controllers
         }
     }
 
-    // ✅ DTOs
+    //  DTOs
     public class RegisterDto { public string Email { get; set; } = null!; public string Password { get; set; } = null!; public string ConfirmPassword { get; set; } = null!; }
     public class LoginDto { public string Email { get; set; } = null!; public string Password { get; set; } = null!; }
     public class ForgotPasswordDto { public string Email { get; set; } = null!; }

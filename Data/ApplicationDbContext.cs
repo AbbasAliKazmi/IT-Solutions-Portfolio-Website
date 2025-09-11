@@ -12,19 +12,19 @@ namespace ProductAPI.Data
         {
         }
 
-        // ✅ Products ke liye DbSet
+        //  Products ke liye DbSet
         public DbSet<Product> Products { get; set; }
 
-        // ✅ Repositories ke liye DbSet
+        // Repositories ke liye DbSet
         public DbSet<Repository> Repositories { get; set; }
 
-        // ✅ Research & Publications ke liye DbSet
+        //  Research & Publications ke liye DbSet
         public DbSet<ResearchPublication> ResearchPublications { get; set; }
 
 
         public DbSet<Research> Research { get; set; }
 
-        // ✅ Seed data
+        //  Seed data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -37,7 +37,7 @@ namespace ProductAPI.Data
                     Description = "Open source AI repository",
                     Type = "Free",
                     GitHubLink = "https://github.com/example/free-ai",
-                    CreatedAt = new DateTime(2025, 01, 01) // ✅ static date
+                    CreatedAt = new DateTime(2025, 01, 01) //  static date
                 },
                 new Repository
                 {
@@ -46,7 +46,7 @@ namespace ProductAPI.Data
                     Description = "Premium ML project",
                     Type = "Premium",
                     GitHubLink = "https://github.com/example/premium-ml",
-                    CreatedAt = new DateTime(2025, 01, 02) // ✅ static date
+                    CreatedAt = new DateTime(2025, 01, 02) //  static date
                 }
             );
         }

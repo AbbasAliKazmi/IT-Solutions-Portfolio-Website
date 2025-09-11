@@ -20,7 +20,7 @@ namespace ProductAPI.Controllers
             _context = context;
         }
 
-        // ✅ 1. Get All Publications
+        //  1. Get All Publications
         [HttpGet]
         [AllowAnonymous] // Publicly accessible (frontend users ko dikhana hai)
         public async Task<ActionResult<IEnumerable<ResearchPublication>>> GetPublications()
@@ -28,7 +28,7 @@ namespace ProductAPI.Controllers
             return await _context.ResearchPublications.ToListAsync();
         }
 
-        // ✅ 2. Get Publication by Id
+        //  2. Get Publication by Id
         [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<ActionResult<ResearchPublication>> GetPublication(int id)
@@ -43,7 +43,7 @@ namespace ProductAPI.Controllers
             return publication;
         }
 
-        // ✅ 3. Create Publication
+        //  3. Create Publication
         [HttpPost]
         public async Task<ActionResult<ResearchPublication>> CreatePublication(ResearchPublication publication)
         {
@@ -53,7 +53,7 @@ namespace ProductAPI.Controllers
             return CreatedAtAction(nameof(GetPublication), new { id = publication.Id }, publication);
         }
 
-        // ✅ 4. Update Publication
+        //  4. Update Publication
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePublication(int id, ResearchPublication publication)
         {
@@ -83,7 +83,7 @@ namespace ProductAPI.Controllers
             return NoContent();
         }
 
-        // ✅ 5. Delete Publication
+        //  5. Delete Publication
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePublication(int id)
         {

@@ -8,7 +8,7 @@ namespace MyProject.Controllers
     public class ProtectedController : ControllerBase
     {
         [HttpGet("data")]
-        [Authorize]  // Yeh line ensure karti hai k token valid ho
+        [Authorize]  // this line ensures token is valid
         public IActionResult GetProtectedData()
         {
             return Ok(new

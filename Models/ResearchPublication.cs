@@ -11,10 +11,10 @@ namespace ProductAPI.Models
         public string Abstract { get; set; } = null!;
 
         // Single author (agar multiple chahiye to string list bana sakte ho)
-        public string Author { get; set; } = null!;   // ✅ Controller me Authors call ho raha hai
+        public string Author { get; set; } = null!;   //  Controller me Authors call ho raha hai
 
         // Category (AI, ML, Blockchain etc.)
-        public string Category { get; set; } = null!;  // ✅ Category added
+        public string Category { get; set; } = null!;  //  Category added
 
         // Year of publication
         public int Year { get; set; }
@@ -23,6 +23,6 @@ namespace ProductAPI.Models
         public DateTime PublishedAt { get; set; }
 
         // PDF file URL/path
-        public string PdfUrl { get; set; } = null!;    // ✅ PdfUrl added
+        public string PdfUrl { get; set; } = null!;    //  PdfUrl added
     }
 }

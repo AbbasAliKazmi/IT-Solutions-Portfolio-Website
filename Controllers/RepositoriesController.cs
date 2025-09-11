@@ -18,14 +18,14 @@ namespace ProductAPI.Controllers
             _context = context;
         }
 
-        // ✅ GET: api/repositories (sab repos list karega)
+        //  GET: api/repositories (sab repos list karega)
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Repository>>> GetRepositories()
         {
             return await _context.Repositories.ToListAsync();
         }
 
-        // ✅ GET: api/repositories/5 (id se repo nikalna)
+        //  GET: api/repositories/5 (id se repo nikalna)
         [HttpGet("{id}")]
         public async Task<ActionResult<Repository>> GetRepository(int id)
         {
@@ -34,7 +34,7 @@ namespace ProductAPI.Controllers
             return repo;
         }
 
-        // ✅ POST: api/repositories (naya repo add karna)
+        //  POST: api/repositories (naya repo add karna)
         [HttpPost]
         public async Task<ActionResult<Repository>> CreateRepository(Repository repo)
         {
@@ -43,7 +43,7 @@ namespace ProductAPI.Controllers
             return CreatedAtAction(nameof(GetRepository), new { id = repo.Id }, repo);
         }
 
-        // ✅ PUT: api/repositories/5 (update repo)
+        //  PUT: api/repositories/5 (update repo)
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateRepository(int id, Repository repo)
         {
@@ -54,7 +54,7 @@ namespace ProductAPI.Controllers
             return NoContent();
         }
 
-        // ✅ DELETE: api/repositories/5 (repo delete)
+        //  DELETE: api/repositories/5 (repo delete)
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRepository(int id)
         {
