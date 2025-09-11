@@ -59,8 +59,8 @@ namespace ProductAPI.Controllers
             var confirmLink = $"{frontUrl}/api/Auth/confirmemail?userId={user.Id}&token={tokenEncoded}";
 
             // ✅ Send only via email (not in API response)
-            await _emailSender.SendEmailAsync(user.Email, "Confirm your email",
-                $"Please confirm your account by clicking <a href=\"{confirmLink}\">here</a>.");
+            // await _emailSender.SendEmailAsync(user.Email, "Confirm your email",
+            //    $"Please confirm your account by clicking <a href=\"{confirmLink}\">here</a>.");
 
             return Ok(new { message = "User created. Please check your email to confirm your account." });
         }

@@ -149,7 +149,7 @@ if (!Directory.Exists(contentPath))
 
 // ===================== Phase 3: Authentication & Routing =====================
 // ✅ Correct order
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseCors("AllowFrontend"); // ✅ CORS here

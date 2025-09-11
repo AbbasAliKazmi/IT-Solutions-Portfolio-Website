@@ -181,3 +181,4 @@ C:\Users\Zbook 17\OneDrive\Desktop\PORTFOLIO BUSINESS PHASE 2\ProductAPI\bin\Deb
 C:\Users\Zbook 17\OneDrive\Desktop\PORTFOLIO BUSINESS PHASE 2\ProductAPI\bin\Debug\net8.0\MimeKit.dll
 C:\Users\Zbook 17\OneDrive\Desktop\PORTFOLIO BUSINESS PHASE 2\ProductAPI\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\Zbook 17\OneDrive\Desktop\PORTFOLIO BUSINESS PHASE 2\ProductAPI\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\Zbook 17\OneDrive\Desktop\PORTFOLIO BUSINESS PHASE 2\ProductAPI\obj\Debug\net8.0\ProductAPI.sourcelink.json

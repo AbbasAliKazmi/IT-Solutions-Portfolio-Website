@@ -2,17 +2,20 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProductAPI.Data;
 
 #nullable disable
 
-namespace ProductAPI.Data.Migrations.IdentityMigrations
+namespace ProductAPI.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250908233645_SeedRepositories")]
+    partial class SeedRepositories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.8");
@@ -284,7 +287,7 @@ namespace ProductAPI.Data.Migrations.IdentityMigrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 36, 44, 755, DateTimeKind.Utc).AddTicks(282),
                             Description = "Open source AI repository",
                             GitHubLink = "https://github.com/example/free-ai",
                             Title = "AI Free Repo",
@@ -293,81 +296,12 @@ namespace ProductAPI.Data.Migrations.IdentityMigrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2025, 9, 8, 23, 36, 44, 755, DateTimeKind.Utc).AddTicks(2074),
                             Description = "Premium ML project",
                             GitHubLink = "https://github.com/example/premium-ml",
                             Title = "ML Premium Repo",
                             Type = "Premium"
                         });
-                });
-
-            modelBuilder.Entity("ProductAPI.Models.Research", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Abstract")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Author")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FilePath")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("PublishedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Research");
-                });
-
-            modelBuilder.Entity("ProductAPI.Models.ResearchPublication", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Abstract")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Author")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PdfUrl")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("PublishedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ResearchPublications");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
