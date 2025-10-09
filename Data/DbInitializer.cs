@@ -1,4 +1,6 @@
+
 using ProductAPI.Models;
+
 
 namespace ProductAPI.Data
 {
@@ -9,11 +11,13 @@ namespace ProductAPI.Data
             // Ensure database is created
             context.Database.EnsureCreated();
 
+
             // Check if any products exist
             if (context.Products.Any())
             {
                 return; // DB has been seeded
             }
+
 
             var products = new Product[]
             {
@@ -33,10 +37,12 @@ namespace ProductAPI.Data
                 }
             };
 
+
             foreach (var p in products)
             {
                 context.Products.Add(p);
             }
+
 
             context.SaveChanges();
         }

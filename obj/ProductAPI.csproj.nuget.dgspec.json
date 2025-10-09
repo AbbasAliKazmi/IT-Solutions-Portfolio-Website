@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Zbook 17\\OneDrive\\Desktop\\PORTFOLIO BUSINESS PHASE 2\\ProductAPI\\ProductAPI.csproj": {}
+    "C:\\Users\\Zbook 17\\OneDrive\\Desktop\\PORTFOLIO BUSINESS PHASE 3\\ProductAPI Phase 3\\ProductAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Zbook 17\\OneDrive\\Desktop\\PORTFOLIO BUSINESS PHASE 2\\ProductAPI\\ProductAPI.csproj": {
+    "C:\\Users\\Zbook 17\\OneDrive\\Desktop\\PORTFOLIO BUSINESS PHASE 3\\ProductAPI Phase 3\\ProductAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Zbook 17\\OneDrive\\Desktop\\PORTFOLIO BUSINESS PHASE 2\\ProductAPI\\ProductAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Zbook 17\\OneDrive\\Desktop\\PORTFOLIO BUSINESS PHASE 3\\ProductAPI Phase 3\\ProductAPI.csproj",
         "projectName": "ProductAPI",
-        "projectPath": "C:\\Users\\Zbook 17\\OneDrive\\Desktop\\PORTFOLIO BUSINESS PHASE 2\\ProductAPI\\ProductAPI.csproj",
+        "projectPath": "C:\\Users\\Zbook 17\\OneDrive\\Desktop\\PORTFOLIO BUSINESS PHASE 3\\ProductAPI Phase 3\\ProductAPI.csproj",
         "packagesPath": "C:\\Users\\Zbook 17\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Zbook 17\\OneDrive\\Desktop\\PORTFOLIO BUSINESS PHASE 2\\ProductAPI\\obj\\",
+        "outputPath": "C:\\Users\\Zbook 17\\OneDrive\\Desktop\\PORTFOLIO BUSINESS PHASE 3\\ProductAPI Phase 3\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Zbook 17\\AppData\\Roaming\\NuGet\\NuGet.Config"

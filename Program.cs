@@ -1,4 +1,4 @@
-using ProductAPI.Services; 
+using ProductAPI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -9,17 +9,21 @@ using System.Text;
 using System.IO;
 using Microsoft.OpenApi.Models;   //  Swagger ke liye add
 
+
 var builder = WebApplication.CreateBuilder(args);
+
 
 // ===================== Phase 3: Identity + JWT =====================
 // 🔹 Identity DbContext (SQLite)
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+
 // 🔹 Identity setup (ApplicationUser + ApplicationRole)
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
+
 
 // 🔹 JWT Authentication
 builder.Services.AddAuthentication(options =>
@@ -42,11 +46,14 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+
 builder.Services.AddAuthorization();
+
 
 // ===================== Phase 1: Products API =====================
 builder.Services.AddDbContext<ProductContext>(options =>
     options.UseSqlite("Data Source=products.db"));
+
 
 // ===================== Phase 2: Other Setup =====================
 // 🔹 CORS (Frontend Allowed)
@@ -56,7 +63,7 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins(
                 "http://localhost:3000",   // React dev server
-                "http://localhost:10005", 
+                "http://localhost:10005",
                 "http://localhost/weburio", // agar WP ya custom port pe chal raha
                 "http://localhost",        // WordPress local without port
                 "http://127.0.0.1"         // alternate localhost
@@ -67,12 +74,14 @@ builder.Services.AddCors(options =>
     });
 });
 
+
 // 🔹 Controllers + Swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SupportNonNullableReferenceTypes();
+
 
     //  JWT Bearer config for Swagger
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -83,6 +92,7 @@ builder.Services.AddSwaggerGen(c =>
         Type = SecuritySchemeType.ApiKey,
         Scheme = "Bearer"
     });
+
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
@@ -100,17 +110,23 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+
 //  Email sender register
 builder.Services.AddScoped<IEmailSender, SmtpEmailSender>();
 
 
 
+
+
+
 var app = builder.Build();
+
 
 // ===================== Phase 1 + 3: Seed Product DB + Roles + Admin =====================
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
+
 
     try
     {
@@ -118,9 +134,11 @@ using (var scope = app.Services.CreateScope())
         var productContext = services.GetRequiredService<ProductContext>();
         DbInitializer.Initialize(productContext);
 
+
         // --- Roles seed ---
         var roleManager = services.GetRequiredService<RoleManager<ApplicationRole>>();
         await SeedData.SeedRolesAsync(roleManager);
+
 
         // --- Admin user seed ---
         var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
@@ -132,12 +150,14 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+
 // ===================== Phase 2: Swagger =====================
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 // ===================== Phase 2: Static Files =====================
 app.UseStaticFiles();
@@ -147,16 +167,23 @@ if (!Directory.Exists(contentPath))
     Directory.CreateDirectory(contentPath);
 }
 
+
 // ===================== Phase 3: Authentication & Routing =====================
 //  Correct order
 // app.UseHttpsRedirection();
 app.UseRouting();
 
+
 app.UseCors("AllowFrontend"); //  CORS here
+
 
 app.UseAuthentication();
 app.UseAuthorization();
 
+
 app.MapControllers();
 
+
 app.Run();
+
+

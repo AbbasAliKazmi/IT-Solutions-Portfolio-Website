@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "x4HMT5XNuBM=",
+  "dgSpecHash": "jmlQaAFFygQ=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Zbook 17\\OneDrive\\Desktop\\PORTFOLIO BUSINESS PHASE 2\\ProductAPI\\ProductAPI.csproj",
+  "projectFilePath": "C:\\Users\\Zbook 17\\OneDrive\\Desktop\\PORTFOLIO BUSINESS PHASE 3\\ProductAPI Phase 3\\ProductAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Zbook 17\\.nuget\\packages\\bouncycastle.cryptography\\2.5.1\\bouncycastle.cryptography.2.5.1.nupkg.sha512",
     "C:\\Users\\Zbook 17\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

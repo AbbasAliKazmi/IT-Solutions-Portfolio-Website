@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProductAPI.Data;
 using ProductAPI.Models;
 
+
 namespace ProductAPI.Controllers
 {
     [ApiController]
@@ -11,10 +12,12 @@ namespace ProductAPI.Controllers
     {
         private readonly ApplicationDbContext _context;
 
+
         public ResearchPublicationController(ApplicationDbContext context)
         {
             _context = context;
         }
+
 
         //  Get all publications
         [HttpGet]
@@ -22,6 +25,7 @@ namespace ProductAPI.Controllers
         {
             return Ok(_context.ResearchPublications.ToList());
         }
+
 
         //  Get publication by id
         [HttpGet("{id}")]
@@ -31,6 +35,7 @@ namespace ProductAPI.Controllers
             if (pub == null) return NotFound();
             return Ok(pub);
         }
+
 
         //  Add new publication (Admin only)
         [Authorize(Roles = "Admin")]
@@ -42,6 +47,7 @@ namespace ProductAPI.Controllers
             return Ok(pub);
         }
 
+
         //  Update publication (Admin only)
         [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
@@ -50,6 +56,7 @@ namespace ProductAPI.Controllers
             var existing = _context.ResearchPublications.Find(id);
             if (existing == null) return NotFound();
 
+
             existing.Title = pub.Title;
             existing.Abstract = pub.Abstract;
             existing.Author = pub.Author;
@@ -57,9 +64,11 @@ namespace ProductAPI.Controllers
             existing.PdfUrl = pub.PdfUrl;
             existing.PublishedAt = pub.PublishedAt;
 
+
             _context.SaveChanges();
             return Ok(existing);
         }
+
 
         //  Delete publication (Admin only)
         [Authorize(Roles = "Admin")]
@@ -69,9 +78,14 @@ namespace ProductAPI.Controllers
             var pub = _context.ResearchPublications.Find(id);
             if (pub == null) return NotFound();
 
+
             _context.ResearchPublications.Remove(pub);
             _context.SaveChanges();
             return Ok();
         }
     }
 }
+
+
+
+
