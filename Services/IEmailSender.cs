@@ -5,3 +5,4 @@ namespace ProductAPI.Services
         Task SendEmailAsync(string to, string subject, string htmlMessage);
     }
 }
+

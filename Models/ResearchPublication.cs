@@ -22,6 +22,8 @@ namespace ProductAPI.Models
         // Date of publishing
         public DateTime PublishedAt { get; set; }
 
+        public DateTime CreatedAt { get; set; }
+
         // PDF file URL/path
         public string PdfUrl { get; set; } = null!;    //  PdfUrl added
     }

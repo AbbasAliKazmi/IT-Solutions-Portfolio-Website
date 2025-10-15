@@ -24,6 +24,8 @@ namespace ProductAPI.Data
 
         public DbSet<Research> Research { get; set; }
 
+        public DbSet<Feedback> Feedbacks { get; set; }
+
         //  Seed data
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -13,5 +13,13 @@ namespace ProductAPI.Models
         // New properties
         public string? Name { get; set; }   // Add this
         public decimal Price { get; set; }  // Add this
+
+
+        public string? LongDescription { get; set; }  // 🔹 Add this
+
+        public string? Domain { get; set; }  // 🔹 Add this
+        
+
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

@@ -112,7 +112,7 @@ builder.Services.AddSwaggerGen(c =>
 
 
 //  Email sender register
-builder.Services.AddScoped<IEmailSender, SmtpEmailSender>();
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 
 
