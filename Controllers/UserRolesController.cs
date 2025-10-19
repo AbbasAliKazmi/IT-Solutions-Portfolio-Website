@@ -7,7 +7,7 @@ namespace ProductAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "Admin")] //  Sirf Admin access
+  //  [Authorize(Roles = "Admin")] //  Sirf Admin access
     public class UserRolesController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
