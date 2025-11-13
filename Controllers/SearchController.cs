@@ -61,7 +61,7 @@ namespace ProductAPI.Controllers
                         string.IsNullOrEmpty(keyword) ||
                         (r.Title != null && r.Title.Contains(keyword)) ||
                         (r.Description != null && r.Description.Contains(keyword)) ||
-                        (r.GitHubLink != null && r.GitHubLink.Contains(keyword))
+                        (r.GitHubURL != null && r.GitHubURL.Contains(keyword))
                     )
                     .ToListAsync();
 

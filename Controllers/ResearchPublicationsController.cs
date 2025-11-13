@@ -1,13 +1,92 @@
+// using Microsoft.AspNetCore.Authorization;
+// using Microsoft.AspNetCore.Mvc;
+// using ProductAPI.Data;
+// using ProductAPI.Models;
+
+// namespace ProductAPI.Controllers
+// {
+//     [ApiController]
+//     [Route("api/[controller]")]
+//     [Authorize(Roles = "Admin")] //  Sirf Admin access
+//     public class ResearchPublicationsController : ControllerBase
+//     {
+//         private readonly ApplicationDbContext _context;
+
+//         public ResearchPublicationsController(ApplicationDbContext context)
+//         {
+//             _context = context;
+//         }
+
+//         //  Get All
+//         [HttpGet]
+//         public IActionResult GetAll()
+//         {
+//             return Ok(_context.ResearchPublications.ToList());
+//         }
+
+//         //  Get by ID
+//         [HttpGet("{id}")]
+//         public IActionResult Get(int id)
+//         {
+//             var publication = _context.ResearchPublications.Find(id);
+//             if (publication == null) return NotFound();
+//             return Ok(publication);
+//         }
+
+//         //  Create
+//         [HttpPost]
+//         public IActionResult Create([FromBody] ResearchPublication pub)
+//         {
+//             if (!ModelState.IsValid) return BadRequest(ModelState);
+
+//             _context.ResearchPublications.Add(pub);
+//             _context.SaveChanges();
+//             return Ok(pub);
+//         }
+
+//         //  Update
+//         [HttpPut("{id}")]
+//         public IActionResult Update(int id, [FromBody] ResearchPublication pub)
+//         {
+//             var existing = _context.ResearchPublications.Find(id);
+//             if (existing == null) return NotFound();
+
+//             existing.Title = pub.Title;
+//             existing.Abstract = pub.Abstract;
+//             existing.Author = pub.Author;
+//             existing.Category = pub.Category;
+//             existing.Year = pub.Year;
+//             existing.PublishedAt = pub.PublishedAt;
+//             existing.PdfUrl = pub.PdfUrl;
+
+//             _context.SaveChanges();
+//             return Ok(existing);
+//         }
+
+//         //  Delete
+//         [HttpDelete("{id}")]
+//         public IActionResult Delete(int id)
+//         {
+//             var pub = _context.ResearchPublications.Find(id);
+//             if (pub == null) return NotFound();
+
+//             _context.ResearchPublications.Remove(pub);
+//             _context.SaveChanges();
+//             return Ok();
+//         }
+//     }
+// }
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductAPI.Data;
 using ProductAPI.Models;
+using System.Linq;
 
 namespace ProductAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "Admin")] //  Sirf Admin access
+    [Authorize(Roles = "Admin")] // Sirf Admin access
     public class ResearchPublicationsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -17,39 +96,43 @@ namespace ProductAPI.Controllers
             _context = context;
         }
 
-        //  Get All
+        // ✅ Get all
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(_context.ResearchPublications.ToList());
+            var list = _context.ResearchPublications.ToList();
+            return Ok(list);
         }
 
-        //  Get by ID
+        // ✅ Get by ID
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             var publication = _context.ResearchPublications.Find(id);
-            if (publication == null) return NotFound();
+            if (publication == null)
+                return NotFound();
             return Ok(publication);
         }
 
-        //  Create
+        // ✅ Create
         [HttpPost]
-        public IActionResult Create([FromBody] ResearchPublication pub)
+        public async Task<IActionResult> Create([FromBody] ResearchPublication pub)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             _context.ResearchPublications.Add(pub);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();   // 🔥 added async save
             return Ok(pub);
         }
 
-        //  Update
+        // ✅ Update
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] ResearchPublication pub)
+        public async Task<IActionResult> Update(int id, [FromBody] ResearchPublication pub)
         {
             var existing = _context.ResearchPublications.Find(id);
-            if (existing == null) return NotFound();
+            if (existing == null)
+                return NotFound();
 
             existing.Title = pub.Title;
             existing.Abstract = pub.Abstract;
@@ -59,19 +142,20 @@ namespace ProductAPI.Controllers
             existing.PublishedAt = pub.PublishedAt;
             existing.PdfUrl = pub.PdfUrl;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();   // 🔥 async save
             return Ok(existing);
         }
 
-        //  Delete
+        // ✅ Delete
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var pub = _context.ResearchPublications.Find(id);
-            if (pub == null) return NotFound();
+            if (pub == null)
+                return NotFound();
 
             _context.ResearchPublications.Remove(pub);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();   // 🔥 async save
             return Ok();
         }
     }

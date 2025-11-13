@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductAPI.Data;
 using ProductAPI.Models;
+using ProductAPI.Services; // 👈 For IEmailSender
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ProductAPI.Controllers
 {
@@ -12,89 +14,101 @@ namespace ProductAPI.Controllers
     public class RepositoryController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IEmailSender _emailSender;
 
-        public RepositoryController(ApplicationDbContext context)
+        public RepositoryController(ApplicationDbContext context, IEmailSender emailSender)
         {
             _context = context;
+            _emailSender = emailSender;
         }
 
-        // ✅ Get all repositories (Role-based filtering)
+        // ✅ Get all repositories
         [HttpGet]
-        [Authorize(Roles = "Admin,Researcher,Student")]
-        public IActionResult GetAll()
+        [AllowAnonymous] // temporarily allow all users
+        public async Task<IActionResult> GetRepos()
         {
-            var repos = _context.Repositories.ToList();
-
-            // Agar Student login hai to sirf Free wali repos dikhao
-            if (User.IsInRole("Student"))
-            {
-                repos = repos
-                    .Where(r => !string.IsNullOrEmpty(r.Type) && r.Type.ToLower() == "free")
-                    .ToList();
-            }
-
+            var repos = await _context.Repositories.ToListAsync();
             return Ok(repos);
         }
 
-        // ✅ Get single repository by id
+        // ✅ Get repository by ID
         [HttpGet("{id}")]
-        [Authorize(Roles = "Admin,Researcher,Student")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> GetRepo(int id)
         {
-            var repo = _context.Repositories.Find(id);
-            if (repo == null)
-                return NotFound(new { message = "Repository not found." });
-
-            // Agar Student hai to sirf Free repos ka access
-            if (User.IsInRole("Student") && repo.Type?.ToLower() != "free")
-                return Forbid();
-
+            var repo = await _context.Repositories.FindAsync(id);
+            if (repo == null) return NotFound();
             return Ok(repo);
         }
 
-        // ✅ Create new repository (Admin only)
+        // ✅ Create repository (Admin)
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public IActionResult Create([FromBody] Repository repo)
+        public async Task<IActionResult> Create([FromBody] Repository repo)
         {
-            if (repo == null)
-                return BadRequest(new { message = "Invalid repository data." });
+            if (repo == null) return BadRequest("Invalid data");
 
             _context.Repositories.Add(repo);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Ok(repo);
         }
 
-        // ✅ Update existing repository (Admin only)
+        // ✅ Update repository (Admin)
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
-        public IActionResult Update(int id, [FromBody] Repository repo)
+        public async Task<IActionResult> Update(int id, [FromBody] Repository repo)
         {
-            var existing = _context.Repositories.Find(id);
-            if (existing == null)
-                return NotFound(new { message = "Repository not found." });
+            var existing = await _context.Repositories.FindAsync(id);
+            if (existing == null) return NotFound();
 
             existing.Title = repo.Title;
             existing.Description = repo.Description;
-            existing.Type = repo.Type;
-            existing.GitHubLink = repo.GitHubLink;
+            existing.GitHubURL = repo.GitHubURL;
+            existing.License = repo.License;
+            existing.Version = repo.Version;
+            existing.Domain = repo.Domain;
+            existing.PreviewURL = repo.PreviewURL;
+            existing.IsPremium = repo.IsPremium;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Ok(existing);
         }
 
-        // ✅ Delete repository (Admin only)
+        // ✅ Delete repository
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var repo = _context.Repositories.Find(id);
-            if (repo == null)
-                return NotFound(new { message = "Repository not found." });
+            var repo = await _context.Repositories.FindAsync(id);
+            if (repo == null) return NotFound();
 
             _context.Repositories.Remove(repo);
-            _context.SaveChanges();
-            return Ok(new { message = "Repository deleted successfully." });
+            await _context.SaveChangesAsync();
+            return Ok(new { message = "Deleted successfully" });
         }
+
+        // ✅ POST: Premium Access Request (User → Email Admin)
+        [HttpPost("RequestPremium")]
+        [AllowAnonymous]
+        public async Task<IActionResult> RequestPremium([FromBody] PremiumRequest req)
+        {
+            if (req == null) return BadRequest();
+
+            var message = $@"
+                <h3>Premium Access Request</h3>
+                <p>User: {req.UserName} ({req.UserEmail})</p>
+                <p>Requested Repo: {req.RepoTitle}</p>
+            ";
+
+            await _emailSender.SendEmailAsync("admin@yourdomain.com", "Premium Access Request", message);
+            return Ok(new { success = true });
+        }
+    }
+
+    // ✅ Model for Premium Request
+    public class PremiumRequest
+    {
+        public string UserName { get; set; }
+        public string UserEmail { get; set; }
+        public string RepoTitle { get; set; }
     }
 }

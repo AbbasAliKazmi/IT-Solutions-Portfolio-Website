@@ -35,20 +35,28 @@ namespace ProductAPI.Data
                 new Repository
                 {
                     Id = 1,
-                    Title = "AI Free Repo",
-                    Description = "Open source AI repository",
+                    Title = "Research Downloader",
+                    Description = "Secure download access system",
                     Type = "Free",
-                    GitHubLink = "https://github.com/example/free-ai",
-                    CreatedAt = new DateTime(2025, 01, 01) //  static date
+                    GitHubURL = "https://github.com/YourName/ResearchDownloader",
+                    License = "MIT",
+                    Version = "1.0.0",
+                    Domain = "AI",
+                    PreviewURL = "https://example.com/preview",
+                    IsPremium = false
                 },
                 new Repository
                 {
                     Id = 2,
-                    Title = "ML Premium Repo",
-                    Description = "Premium ML project",
-                    Type = "Premium",
-                    GitHubLink = "https://github.com/example/premium-ml",
-                    CreatedAt = new DateTime(2025, 01, 02) //  static date
+                    Title = "Research Downloader",
+                    Description = "Secure download access system",
+                    Type = "Free",
+                    GitHubURL = "https://github.com/YourName/ResearchDownloader",
+                    License = "MIT",
+                    Version = "1.0.0",
+                    Domain = "AI",
+                    PreviewURL = "https://example.com/preview",
+                    IsPremium = false
                 }
             );
         }
