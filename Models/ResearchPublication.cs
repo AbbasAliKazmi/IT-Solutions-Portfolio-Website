@@ -1,30 +1,17 @@
 namespace ProductAPI.Models
 {
-    public class ResearchPublication
-    {
-        public int Id { get; set; }
+public class ResearchPublication
+{
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public string Author { get; set; }
+    public int Year { get; set; }
+    public string Category { get; set; }
+    public string Abstract { get; set; }
+    public string PdfUrl { get; set; }
+    public DateTime? PublishedAt { get; set; }
+    public DateTime? CreatedAt { get; set; }   // ADD THIS
+}
 
-        // Title of publication
-        public string Title { get; set; } = null!;
 
-        // Abstract/summary
-        public string Abstract { get; set; } = null!;
-
-        // Single author (agar multiple chahiye to string list bana sakte ho)
-        public string Author { get; set; } = null!;   //  Controller me Authors call ho raha hai
-
-        // Category (AI, ML, Blockchain etc.)
-        public string Category { get; set; } = null!;  //  Category added
-
-        // Year of publication
-        public int Year { get; set; }
-
-        // Date of publishing
-        public DateTime PublishedAt { get; set; }
-
-        public DateTime CreatedAt { get; set; }
-
-        // PDF file URL/path
-        public string PdfUrl { get; set; } = null!;    //  PdfUrl added
-    }
 }
